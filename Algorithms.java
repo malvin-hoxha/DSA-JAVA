@@ -76,14 +76,63 @@ class BinarySearchRecursive {
     }
 }
 
+class BubbleSort {
+
+    public void sort(int[] arr) {
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            boolean swap = false;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swap = true;
+                }
+            }
+
+            if (!swap) {
+                break;
+            }
+        }
+    }
+}
+
+class SelectionSort {
+
+    public void sort(int arr[]) {
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[minIndex] > arr[j]) {
+                    minIndex = j;
+                }
+
+            }
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+}
+
 public class Algorithms {
 
     public static void main(String[] args) {
 
-        BinarySearchRecursive bSearch = new BinarySearchRecursive();
-        int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        int result = bSearch.search(arr, 7, 0, arr.length - 1);
-        bSearch.print(arr, result);
+        int[] arr = { 5, 1, 10, 90, 18, 2, 7 };
+
+        for (int i : arr) {
+            System.out.println(i + " ");
+        }
+
+        SelectionSort selectionSort = new SelectionSort();
+        selectionSort.sort(arr);
+
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
 
     }
 }
