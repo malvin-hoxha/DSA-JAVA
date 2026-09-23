@@ -117,21 +117,74 @@ class SelectionSort {
     }
 }
 
+class InsertionSort {
+    public void sort(int arr[]) {
+
+        for (int i = 1; i < arr.length; i++) {
+            int key = arr[i]; // 2
+
+            int j = i - 1; // 0
+
+            while (j >= 0 && arr[j] > key) { // 5 > 2
+                arr[j + 1] = arr[j];
+                j--;
+            }
+
+            arr[j] = key;
+        }
+    }
+}
+
+class QuickSort {
+
+    public void sort(int arr[], int low, int high) {
+        if (low >= high) {
+            return;
+        }
+
+        int partitionIndex = partition(arr, low, high);
+        sort(arr, low, partitionIndex - 1);
+        sort(arr, partitionIndex + 1, high);
+    }
+
+    public int partition(int arr[], int low, int high) {
+
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                int temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+
+        arr[high] = arr[i + 1];
+        arr[i + 1] = pivot;
+        return i + 1;
+    }
+}
+
 public class Algorithms {
 
     public static void main(String[] args) {
 
-        int[] arr = { 5, 1, 10, 90, 18, 2, 7 };
-
-        for (int i : arr) {
-            System.out.println(i + " ");
-        }
-
-        SelectionSort selectionSort = new SelectionSort();
-        selectionSort.sort(arr);
+        int[] arr = { 5, 2, 4, 1 };
 
         for (int i : arr) {
             System.out.print(i + " ");
+        }
+
+        System.out.println();
+
+        QuickSort quickSort = new QuickSort();
+        quickSort.sort(arr, 0, arr.length - 1);
+
+        for (int i : arr) {
+            System.out.print(i + " ");
+
         }
 
     }
