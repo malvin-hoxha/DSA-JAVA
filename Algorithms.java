@@ -302,20 +302,57 @@ class LinkedList {
     }
 }
 
+class Stack {
+
+    int[] stack = new int[5];
+    int top = 0;
+
+    public void push(int data) {
+        stack[top] = data;
+        top++;
+    }
+
+    public void show() {
+        for (int s : stack) {
+            System.out.println(s);
+        }
+    }
+
+    public int pop() {
+        top--;
+        int data = stack[top];
+        stack[top] = 0;
+
+        return data;
+    }
+
+    public int size() {
+        return top;
+    }
+
+    public boolean isEmpty() {
+        return top <= 0;
+    }
+
+    public int peak() {
+        int data = stack[top - 1];
+        return data;
+
+    }
+
+}
+
 public class Algorithms {
     public static void main(String[] args) {
 
-        LinkedList linkedList = new LinkedList();
-        linkedList.insert(18);
-        linkedList.insert(45);
-        linkedList.insert(11);
-        linkedList.insert(21);
-        linkedList.insert(16);
-        linkedList.insert(20);
-        linkedList.insert(25);
+        Stack stack = new Stack();
 
-        linkedList.insertAt(5, 29);
-        linkedList.deleteAt(5);
-        linkedList.show();
+        stack.push(5);
+        stack.push(10);
+        stack.push(2);
+
+        stack.show();
+
+        System.out.println(stack.pop());
     }
 }
