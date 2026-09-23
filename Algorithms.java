@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class LinearSearch {
 
     public int search(int[] arr, int target) {
@@ -216,25 +218,104 @@ class MergeSort {
     }
 }
 
-public class Algorithms {
+class Node {
+    int data;
+    Node next;
+}
 
+class LinkedList {
+
+    Node head;
+
+    public void insert(int data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+    }
+
+    public void deleteAt(int index) {
+        if (index == 0) {
+            head = head.next;
+        } else {
+            Node temp = head;
+            Node nextNode = null;
+
+            for (int i = 0; i < index - 1; i++) {
+                // System.out.println(temp.data);
+                temp = temp.next;
+                // System.out.println(temp.data);
+
+            }
+            nextNode = temp.next;
+            temp.next = nextNode.next;
+        }
+
+    }
+
+    public void insertAt(int index, int data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+
+        if (index == 0) {
+            inserAtStart(data);
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 0; i < index - 1; i++) {
+            // System.out.println(temp.data);
+            temp = temp.next;
+
+        }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    public void inserAtStart(int data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public void show() {
+        Node temp = head;
+
+        while (temp.next != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+        System.out.println(temp.data);
+    }
+}
+
+public class Algorithms {
     public static void main(String[] args) {
 
-        int[] arr = { 5, 2, 4, 1 };
+        LinkedList linkedList = new LinkedList();
+        linkedList.insert(18);
+        linkedList.insert(45);
+        linkedList.insert(11);
+        linkedList.insert(21);
+        linkedList.insert(16);
+        linkedList.insert(20);
+        linkedList.insert(25);
 
-        for (int i : arr) {
-            System.out.print(i + " ");
-        }
-
-        System.out.println();
-
-        MergeSort mergeSort = new MergeSort();
-        mergeSort.sort(arr, 0, arr.length - 1);
-
-        for (int i : arr) {
-            System.out.print(i + " ");
-
-        }
-
+        linkedList.insertAt(5, 29);
+        linkedList.deleteAt(5);
+        linkedList.show();
     }
 }
