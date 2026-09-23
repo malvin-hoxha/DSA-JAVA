@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 class LinearSearch {
 
     public int search(int[] arr, int target) {
@@ -342,17 +340,161 @@ class Stack {
 
 }
 
+class CyclicQueue {
+
+    int[] queue = new int[5];
+    int front = 0;
+    int rear = -1;
+    int size = 0;
+
+    public void enqueue(int data) {
+        if (isFull()) {
+            System.out.println("Queue is full");
+            return;
+        }
+
+        rear = (rear + 1) % queue.length;
+        queue[rear] = data;
+        size++;
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+
+        int data = queue[front];
+        queue[front] = 0;
+        front = (front + 1) % queue.length;
+        size--;
+
+        return data;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == queue.length;
+    }
+
+    public void show() {
+        for (int i = 0; i < size; i++) {
+            int index = (front + i) % queue.length;
+            System.out.println(queue[index]);
+        }
+    }
+}
+
+class TreeNode {
+    int data;
+    TreeNode left;
+    TreeNode right;
+}
+
+class BinaryTree {
+
+    TreeNode root;
+
+    public void insert(int data) {
+        root = insert(root, data);
+    }
+
+    public TreeNode insert(TreeNode root, int data) {
+        if (root == null) {
+            TreeNode newNode = new TreeNode();
+            newNode.data = data;
+            newNode.left = null;
+            newNode.right = null;
+
+            return newNode;
+        }
+
+        if (data < root.data) {
+            root.left = insert(root.left, data);
+        } else {
+            root.right = insert(root.right, data);
+        }
+
+        return root;
+    }
+
+    public boolean search(int data) {
+        return search(root, data);
+    }
+
+    public boolean search(TreeNode root, int data) {
+        if (root == null) {
+            return false;
+        }
+
+        if (root.data == data) {
+            return true;
+        } else if (data < root.data) {
+            return search(root.left, data);
+        } else {
+            return search(root.right, data);
+        }
+    }
+
+    public void show() {
+        inOrder(root);
+    }
+
+    public void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inOrder(root.left);
+        System.out.println(root.data);
+        inOrder(root.right);
+    }
+}
+
 public class Algorithms {
     public static void main(String[] args) {
 
-        Stack stack = new Stack();
+        int[] arr = { 1, 4, 8, 12, 19, 25 };
+        BinarySearch binarySearch = new BinarySearch();
 
-        stack.push(5);
-        stack.push(10);
-        stack.push(2);
+        int result = binarySearch.search(arr, 19);
+        binarySearch.print(arr, result);
 
-        stack.show();
+        CyclicQueue cyclicQueue = new CyclicQueue();
 
-        System.out.println(stack.pop());
+        cyclicQueue.enqueue(10);
+        cyclicQueue.enqueue(20);
+        cyclicQueue.enqueue(30);
+        cyclicQueue.enqueue(40);
+        cyclicQueue.enqueue(50);
+
+        System.out.println(cyclicQueue.dequeue());
+        System.out.println(cyclicQueue.dequeue());
+
+        cyclicQueue.enqueue(60);
+        cyclicQueue.enqueue(70);
+
+        cyclicQueue.show();
+
+        BinaryTree binaryTree = new BinaryTree();
+
+        binaryTree.insert(20);
+        binaryTree.insert(10);
+        binaryTree.insert(30);
+        binaryTree.insert(5);
+        binaryTree.insert(15);
+        binaryTree.insert(25);
+        binaryTree.insert(35);
+
+        binaryTree.show();
+
+        System.out.println(binaryTree.search(25));
     }
 }
